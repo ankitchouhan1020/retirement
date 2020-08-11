@@ -11,7 +11,7 @@ class Graph extends Component {
     const dataPoints = output.map((item) => {
       const obj = {};
       obj.x = item.age;
-      obj.y = item.saving;
+      obj.y = item.saving > 0 ? item.saving : 0;
       return obj;
     });
 
