@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "../Slider";
+import Slider from "common/Slider";
 import "./form.css";
 
 const Form = ({ input, onSlide }) => {
