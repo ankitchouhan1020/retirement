@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import "./graph.css";
 import CanvasJSReact from "assets/canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -31,7 +32,7 @@ class Graph extends Component {
         {
           type: "area",
           xValueFormatString: "Age #",
-          yValueFormatString: "Saving ₹#,##,##0.##",
+          yValueFormatString: "Saving ₹#,##,##,##0",
           dataPoints,
         },
       ],
@@ -43,5 +44,14 @@ class Graph extends Component {
     );
   }
 }
+
+Graph.propTypes = {
+  output: PropTypes.arrayOf(
+    PropTypes.shape({
+      age: PropTypes.number.isRequired,
+      saving: PropTypes.number.isRequired,
+    })
+  ),
+};
 
 export default Graph;

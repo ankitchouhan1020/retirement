@@ -73,15 +73,15 @@ class Calculator extends Component {
     } = this.state.input;
 
     const output = this.calculateOutput({
-      startingAge: startingAge.value,
-      salary: salary.value,
-      savingRate: savingRate.value,
-      salaryIncrease: salaryIncrease.value,
-      retirementAge: retirementAge.value,
-      retirementSpending: retirementSpending.value,
-      lifespanAge: lifespanAge.value,
-      initialSaving: initialSaving.value,
-      investmentReturnRate: investmentReturnRate.value,
+      startingAge: +startingAge.value,
+      salary: +salary.value,
+      savingRate: +savingRate.value,
+      salaryIncrease: +salaryIncrease.value,
+      retirementAge: +retirementAge.value,
+      retirementSpending: +retirementSpending.value,
+      lifespanAge: +lifespanAge.value,
+      initialSaving: +initialSaving.value,
+      investmentReturnRate: +investmentReturnRate.value,
     });
 
     this.setState({ output });
@@ -103,7 +103,7 @@ class Calculator extends Component {
     const totalYears = lifespanAge - startingAge;
     let salarySaved = Math.floor((salary / 100) * savingRate);
     let currentAge = startingAge;
-    let accumulatedSaving = parseInt(initialSaving);
+    let accumulatedSaving = initialSaving;
 
     for (let currentYear = 0; currentYear <= totalYears; currentYear++) {
       output.push({
