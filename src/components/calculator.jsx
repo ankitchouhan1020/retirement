@@ -6,7 +6,7 @@ import Form from "./form";
 class Calculator extends Component {
   state = {
     input: {
-      startingAge: { label: "Starting Age", value: 24, min: 0, max: 100 },
+      startingAge: { label: "Starting Age", value: 26, min: 0, max: 100 },
       initialSaving: {
         label: "Initial Saving",
         value: 0,
@@ -17,7 +17,7 @@ class Calculator extends Component {
       },
       salary: {
         label: "Yearly Salary",
-        value: 51_000,
+        value: 50_000,
         min: 0,
         max: 1_00_00_000,
         step: 10_000,
@@ -25,7 +25,13 @@ class Calculator extends Component {
       },
       savingRate: {
         label: "Percentage Salary Saved",
-        value: 5,
+        value: 20,
+        min: 0,
+        max: 100,
+      },
+      investmentReturnRate: {
+        label: "Investment Return",
+        value: 4,
         min: 0,
         max: 100,
       },
@@ -38,7 +44,7 @@ class Calculator extends Component {
       retirementAge: { label: "Retirement Age", value: 65, min: 0, max: 100 },
       retirementSpending: {
         label: "Yearly Spending After Retirement",
-        value: 50_000,
+        value: 40_000,
         min: 0,
         max: 1_00_00_000,
         step: 10_000,
@@ -63,6 +69,7 @@ class Calculator extends Component {
       retirementSpending,
       lifespanAge,
       initialSaving,
+      investmentReturnRate,
     } = this.state.input;
 
     const output = this.calculateOutput({
@@ -74,6 +81,7 @@ class Calculator extends Component {
       retirementSpending: retirementSpending.value,
       lifespanAge: lifespanAge.value,
       initialSaving: initialSaving.value,
+      investmentReturnRate: investmentReturnRate.value,
     });
 
     this.setState({ output });
@@ -88,6 +96,7 @@ class Calculator extends Component {
     retirementSpending,
     lifespanAge,
     initialSaving,
+    investmentReturnRate,
   }) {
     const output = [];
 
@@ -102,7 +111,9 @@ class Calculator extends Component {
         saving: accumulatedSaving,
       });
 
-      accumulatedSaving += Math.floor((accumulatedSaving / 100) * savingRate);
+      accumulatedSaving += Math.floor(
+        (accumulatedSaving / 100) * investmentReturnRate
+      );
 
       const yearsToRetire = retirementAge - currentAge;
       const isRetired = yearsToRetire > 0 ? false : true;
