@@ -1,6 +1,6 @@
-import "./graph.css";
 import React, { Component } from "react";
-import CanvasJSReact from "../assets/canvasjs.react";
+import "./graph.css";
+import CanvasJSReact from "../../assets/canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Graph extends Component {

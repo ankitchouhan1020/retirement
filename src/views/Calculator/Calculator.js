@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { cloneDeep } from "lodash";
-import Graph from "./graph";
-import Form from "./form";
+import Graph from "../../common/Graph";
+import Form from "../../common/Form";
 
 class Calculator extends Component {
   state = {
