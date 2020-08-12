@@ -1,10 +1,14 @@
 import React from "react";
+import "./home.css";
 
 const Home = () => {
   return (
-    <>
-      <h1>Home</h1>
-    </>
+    <section className="hm89container">
+      <div className="hm90title-group">
+        <h1 className="hm90title">Financial Calculator Made Simple</h1>
+        <h2 className="hm91subtitle">Open-Source Project</h2>
+      </div>
+    </section>
   );
 };
 

@@ -1,0 +1,22 @@
+.hm89container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hm90title-group {
+  text-align: center;
+}
+
+.hm90title {
+  font-size: 4rem;
+  font-family: Roboto, sans-serif;
+  color: rgb(66, 66, 66);
+  margin-bottom: 0;
+}
+
+.hm91subtitle {
+  font-size: 2rem;
+  color: rgba(66, 66, 66, 0.7);
+}
