@@ -1,0 +1,33 @@
+.model88container {
+  box-sizing: border-box;
+  box-shadow: 0px 0px 6px 5px rgba(225, 225, 226, 0.45);
+  position: relative;
+  width: 220px;
+  margin: 100px;
+  padding: 10px 10px 10px 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.model88title {
+  font-size: 24px;
+  line-height: 0;
+  margin-bottom: 20px;
+}
+
+.model88subtitle {
+  font-size: 16px;
+  font-weight: normal;
+  opacity: 0.9;
+}
+
+.model88img {
+  width: 50px;
+  background-color: #fafafa;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0px 0px 6px 5px rgba(225, 225, 226, 0.45);
+  transform: translate(40%, -40%);
+}

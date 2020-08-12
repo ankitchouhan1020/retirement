@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { cloneDeep } from "lodash";
 import Graph from "common/Graph";
 import Form from "common/Form";
+import Model from "common/Model";
 
 class Calculator extends Component {
   state = {
@@ -52,6 +53,12 @@ class Calculator extends Component {
       },
       lifespanAge: { label: "Lifespan Age", value: 80, min: 0, max: 100 },
     },
+    additionalInput: {
+      houseBuyingAge: 50,
+      housePrice: 40,
+      min: 0,
+      max: 100,
+    },
     output: [],
   };
 
@@ -72,6 +79,8 @@ class Calculator extends Component {
       investmentReturnRate,
     } = this.state.input;
 
+    let { houseBuyingAge, housePrice } = this.state.additionalInput;
+
     const output = this.calculateOutput({
       startingAge: +startingAge.value,
       salary: +salary.value,
@@ -82,6 +91,8 @@ class Calculator extends Component {
       lifespanAge: +lifespanAge.value,
       initialSaving: +initialSaving.value,
       investmentReturnRate: +investmentReturnRate.value,
+      houseBuyingAge,
+      housePrice,
     });
 
     this.setState({ output });
@@ -97,6 +108,8 @@ class Calculator extends Component {
     lifespanAge,
     initialSaving,
     investmentReturnRate,
+    houseBuyingAge,
+    housePrice,
   }) {
     const output = [];
 
@@ -104,11 +117,15 @@ class Calculator extends Component {
     let salarySaved = Math.floor((salary / 100) * savingRate);
     let currentAge = startingAge;
     let accumulatedSaving = initialSaving;
+    let isRetirementAffordable = true;
 
     for (let currentYear = 0; currentYear <= totalYears; currentYear++) {
+      if (accumulatedSaving < 0) {
+        isRetirementAffordable = false;
+      }
       output.push({
         age: currentAge,
-        saving: accumulatedSaving,
+        saving: isRetirementAffordable ? accumulatedSaving : 0,
       });
 
       accumulatedSaving += Math.floor(
@@ -120,6 +137,8 @@ class Calculator extends Component {
 
       if (isRetired) {
         accumulatedSaving -= retirementSpending;
+      } else if (currentAge === houseBuyingAge) {
+        accumulatedSaving -= housePrice * 1_00_000;
       } else {
         salarySaved += Math.floor((salarySaved / 100) * salaryIncrease);
         accumulatedSaving += salarySaved;
@@ -137,12 +156,21 @@ class Calculator extends Component {
     this.updateOutput();
   };
 
+  handleAdditionalChange = (field, value) => {
+    const additionalInput = { ...this.state.additionalInput };
+    additionalInput[field] = value;
+    this.setState({ additionalInput });
+
+    this.updateOutput();
+  };
+
   render() {
-    const { input, output } = this.state;
+    const { input, output, additionalInput } = this.state;
     return (
       <div className="container">
         <Graph output={output} />
         <Form input={input} onSlide={this.handleChange} />
+        <Model input={additionalInput} onSlide={this.handleAdditionalChange} />
       </div>
     );
   }

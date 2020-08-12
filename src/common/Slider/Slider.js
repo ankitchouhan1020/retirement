@@ -7,12 +7,27 @@ const formatter = new Intl.NumberFormat("en-IN", {
   currency: "INR",
 });
 
-const Slider = ({ value, min, max, name, label, step, format, onSlide }) => {
+const renderLabel = ({ label, format, value, name, content }) => {
+  value = format ? formatter.format(`${value}`) : value;
+  return (
+    <label htmlFor={name}>{content ? content : `${label} : ${value}`}</label>
+  );
+};
+
+const Slider = ({
+  value,
+  min,
+  max,
+  name,
+  label,
+  step,
+  format,
+  content,
+  onSlide,
+}) => {
   return (
     <div className="slideContainer">
-      <label htmlFor={name}>
-        {label} : {format ? formatter.format(`${value}`) : value}
-      </label>
+      {renderLabel({ label, format, content, name, value })}
       <input
         id={name}
         type="range"
@@ -32,10 +47,11 @@ Slider.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
-  label: PropTypes.string.isRequired,
-  step: PropTypes.number,
-  format: PropTypes.bool.isRequired,
   onSlide: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  content: PropTypes.string,
+  step: PropTypes.number,
+  format: PropTypes.bool,
 };
 
 Slider.defaultProps = {
