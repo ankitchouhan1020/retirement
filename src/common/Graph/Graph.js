@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
+import { default as formatValue } from "utils/currencyFormatter";
 import "./graph.css";
 
 class Graph extends Component {
@@ -18,7 +19,10 @@ class Graph extends Component {
           "Image description: An area chart predicting saving per year for retirement plan.",
       },
       title: {
-        text: "Retirement Planning",
+        text: "RETIREMENT PLANNING",
+      },
+      subtitle: {
+        text: "Financial Calculator Made Simple",
       },
       xAxis: {
         categories: output.map((item) => item.age),
@@ -36,12 +40,12 @@ class Graph extends Component {
         },
         labels: {
           formatter: function () {
-            return this.value / 1000 + "k";
+            return formatValue.format(this.value);
           },
         },
       },
       tooltip: {
-        pointFormat: "<b>Savings: {point.y:,.0f}</b>",
+        pointFormat: "<b>{series.name}: {point.y:,.0f}</b>",
       },
       plotOptions: {
         area: {
@@ -59,13 +63,17 @@ class Graph extends Component {
       },
       series: [
         {
-          name: "Current Savings",
+          name: "Current Saving",
           data: output.map((item) => item.saving),
         },
       ],
     };
 
-    return <HighchartsReact highcharts={Highcharts} options={options} />;
+    return (
+      <div className="graph92container">
+        <HighchartsReact highcharts={Highcharts} options={options} />
+      </div>
+    );
   }
 }
 
