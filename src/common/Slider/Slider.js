@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import formatter from "utils/currencyFormatter";
 import "./slider.css";
-
-const formatter = new Intl.NumberFormat("en-IN", {
-  style: "currency",
-  currency: "INR",
-});
 
 const renderLabel = ({ label, format, value, name, content }) => {
   value = format ? formatter.format(`${value}`) : value;

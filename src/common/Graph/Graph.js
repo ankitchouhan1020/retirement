@@ -1,47 +1,71 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 import "./graph.css";
-import CanvasJSReact from "assets/canvasjs.react";
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class Graph extends Component {
   render() {
     const { output } = this.props;
-
-    const dataPoints = output.map((item) => {
-      const obj = {};
-      obj.x = item.age;
-      obj.y = item.saving > 0 ? item.saving : 0;
-      return obj;
-    });
-
-    const options = {
-      theme: "light2",
-      animationEnabled: true,
+    const startingAge = output.length === 0 ? 0 : output[0].age;
+    const lifespanAge = output.length === 0 ? 0 : output[output.length - 1].age;
+    let options = {
+      chart: {
+        type: "area",
+      },
+      accessibility: {
+        description:
+          "Image description: An area chart predicting saving per year for retirement plan.",
+      },
       title: {
-        text: "Retirement Plan",
+        text: "Retirement Planning",
       },
-      axisX: {
-        title: "Age",
+      xAxis: {
+        categories: output.map((item) => item.age),
+        allowDecimals: false,
+        title: {
+          text: "Age",
+        },
+        accessibility: {
+          rangeDescription: `Range: ${startingAge} to ${lifespanAge}`,
+        },
       },
-      axisY: {
-        title: "Savings",
-        prefix: "₹",
+      yAxis: {
+        title: {
+          text: "Total Savings",
+        },
+        labels: {
+          formatter: function () {
+            return this.value / 1000 + "k";
+          },
+        },
       },
-      data: [
+      tooltip: {
+        pointFormat: "<b>Savings: {point.y:,.0f}</b>",
+      },
+      plotOptions: {
+        area: {
+          marker: {
+            enabled: false,
+            symbol: "circle",
+            radius: 2,
+            states: {
+              hover: {
+                enabled: true,
+              },
+            },
+          },
+        },
+      },
+      series: [
         {
-          type: "area",
-          xValueFormatString: "Age #",
-          yValueFormatString: "Saving ₹#,##,##,##0",
-          dataPoints,
+          name: "Current Savings",
+          data: output.map((item) => item.saving),
         },
       ],
     };
-    return (
-      <div className="graph-holder">
-        <CanvasJSChart options={options} />
-      </div>
-    );
+
+    return <HighchartsReact highcharts={Highcharts} options={options} />;
   }
 }
 
