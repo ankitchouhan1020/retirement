@@ -7,6 +7,7 @@ module.exports = function override(config) {
     common: "src/common/",
     views: "src/views/",
     assets: "src/assets/",
+    utils: "src/utils",
     "@public": "public", // in root of app outside of src
   })(config);
   return config;

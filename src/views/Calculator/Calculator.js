@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash";
 import Graph from "common/Graph";
 import Form from "common/Form";
 import Model from "common/Model";
+import calculateOutput from "utils/retirementAlgo";
 
 class Calculator extends Component {
   state = {
@@ -54,8 +55,8 @@ class Calculator extends Component {
       lifespanAge: { label: "Lifespan Age", value: 80, min: 0, max: 100 },
     },
     additionalInput: {
-      houseBuyingAge: 50,
-      housePrice: 40,
+      houseBuyingAge: 0,
+      housePrice: 0,
       min: 0,
       max: 100,
     },
@@ -67,7 +68,7 @@ class Calculator extends Component {
   }
 
   updateOutput = () => {
-    let {
+    const {
       startingAge,
       salary,
       savingRate,
@@ -79,9 +80,9 @@ class Calculator extends Component {
       investmentReturnRate,
     } = this.state.input;
 
-    let { houseBuyingAge, housePrice } = this.state.additionalInput;
+    const { houseBuyingAge, housePrice } = this.state.additionalInput;
 
-    const output = this.calculateOutput({
+    const output = calculateOutput({
       startingAge: +startingAge.value,
       salary: +salary.value,
       savingRate: +savingRate.value,
@@ -98,61 +99,10 @@ class Calculator extends Component {
     this.setState({ output });
   };
 
-  calculateOutput({
-    startingAge,
-    salary,
-    savingRate,
-    salaryIncrease,
-    retirementAge,
-    retirementSpending,
-    lifespanAge,
-    initialSaving,
-    investmentReturnRate,
-    houseBuyingAge,
-    housePrice,
-  }) {
-    const output = [];
-
-    const totalYears = lifespanAge - startingAge;
-    let salarySaved = Math.floor((salary / 100) * savingRate);
-    let currentAge = startingAge;
-    let accumulatedSaving = initialSaving;
-    let isRetirementAffordable = true;
-
-    for (let currentYear = 0; currentYear <= totalYears; currentYear++) {
-      if (accumulatedSaving < 0) {
-        isRetirementAffordable = false;
-      }
-      output.push({
-        age: currentAge,
-        saving: isRetirementAffordable ? accumulatedSaving : 0,
-      });
-
-      accumulatedSaving += Math.floor(
-        (accumulatedSaving / 100) * investmentReturnRate
-      );
-
-      const yearsToRetire = retirementAge - currentAge;
-      const isRetired = yearsToRetire > 0 ? false : true;
-
-      if (isRetired) {
-        accumulatedSaving -= retirementSpending;
-      } else if (currentAge === houseBuyingAge) {
-        accumulatedSaving -= housePrice * 1_00_000;
-      } else {
-        salarySaved += Math.floor((salarySaved / 100) * salaryIncrease);
-        accumulatedSaving += salarySaved;
-      }
-      currentAge++;
-    }
-    return output;
-  }
-
   handleChange = (field, value) => {
     const data = cloneDeep(this.state.input);
     data[field].value = value;
     this.setState({ input: data });
-
     this.updateOutput();
   };
 
