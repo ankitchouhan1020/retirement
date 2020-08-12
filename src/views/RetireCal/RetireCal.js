@@ -4,8 +4,9 @@ import Graph from "common/Graph";
 import Form from "common/Form";
 import Model from "common/Model";
 import calculateOutput from "utils/retirementAlgo";
+import "./retireCal.css";
 
-class Calculator extends Component {
+class RetireCal extends Component {
   state = {
     input: {
       startingAge: { label: "Starting Age", value: 26, min: 0, max: 100 },
@@ -117,7 +118,7 @@ class Calculator extends Component {
   render() {
     const { input, output, additionalInput } = this.state;
     return (
-      <div className="container">
+      <div className="rc90container">
         <Graph output={output} />
         <Form input={input} onSlide={this.handleChange} />
         <Model input={additionalInput} onSlide={this.handleAdditionalChange} />
@@ -126,4 +127,4 @@ class Calculator extends Component {
   }
 }
 
-export default Calculator;
+export default RetireCal;
