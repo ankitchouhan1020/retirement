@@ -10,6 +10,8 @@ class RetireCal extends Component {
   state = {
     input: {
       startingAge: { label: "Starting Age", value: 26, min: 0, max: 100 },
+      retirementAge: { label: "Retirement Age", value: 65, min: 0, max: 100 },
+      lifespanAge: { label: "Lifespan Age", value: 80, min: 0, max: 100 },
       initialSaving: {
         label: "Initial Saving",
         value: 0,
@@ -20,7 +22,7 @@ class RetireCal extends Component {
       },
       salary: {
         label: "Yearly Salary",
-        value: 50_000,
+        value: 15_00_000,
         min: 0,
         max: 1_00_00_000,
         step: 10_000,
@@ -28,32 +30,30 @@ class RetireCal extends Component {
       },
       savingRate: {
         label: "Percentage Salary Saved",
-        value: 20,
-        min: 0,
-        max: 100,
-      },
-      investmentReturnRate: {
-        label: "Investment Return",
-        value: 4,
+        value: 12,
         min: 0,
         max: 100,
       },
       salaryIncrease: {
         label: "Salary Increment % Yearly",
-        value: 3,
+        value: 5,
         min: 0,
         max: 100,
       },
-      retirementAge: { label: "Retirement Age", value: 65, min: 0, max: 100 },
+      investmentReturnRate: {
+        label: "Investment Return",
+        value: 9,
+        min: 0,
+        max: 100,
+      },
       retirementSpending: {
         label: "Yearly Spending After Retirement",
-        value: 40_000,
+        value: 12_00_000,
         min: 0,
         max: 1_00_00_000,
         step: 10_000,
         format: true,
       },
-      lifespanAge: { label: "Lifespan Age", value: 80, min: 0, max: 100 },
     },
     additionalInput: {
       houseBuyingAge: 0,
