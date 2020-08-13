@@ -45,7 +45,12 @@ class Graph extends Component {
         },
       },
       tooltip: {
-        pointFormat: "<b>{series.name}: {point.y:,.0f}</b>",
+        formatter: function () {
+          return `
+          Age : <b>${this.point.x + startingAge}</b><br/>
+          Saving : <b>${formatValue.format(this.point.y)}</b>
+          `;
+        },
       },
       plotOptions: {
         area: {
@@ -63,7 +68,7 @@ class Graph extends Component {
       },
       series: [
         {
-          name: "Current Saving",
+          name: "Saving",
           data: output.map((item) => item.saving),
         },
       ],

@@ -16,7 +16,7 @@ export default function calculateOutput({
   const totalYears = lifespanAge - startingAge;
   let salarySaved = Math.floor((salary / 100) * savingRate);
   let currentAge = startingAge;
-  let accumulatedSaving = initialSaving;
+  let accumulatedSaving = initialSaving + salarySaved;
   let isRetirementAffordable = true;
 
   for (let currentYear = 0; currentYear <= totalYears; currentYear++) {
@@ -32,17 +32,20 @@ export default function calculateOutput({
       (accumulatedSaving / 100) * investmentReturnRate
     );
 
-    const yearsToRetire = retirementAge - currentAge;
+    const yearsToRetire = retirementAge - currentAge - 1;
     const isRetired = yearsToRetire > 0 ? false : true;
+
+    if (currentAge === houseBuyingAge) {
+      accumulatedSaving -= housePrice * 1_00_000;
+    }
 
     if (isRetired) {
       accumulatedSaving -= retirementSpending;
-    } else if (currentAge === houseBuyingAge) {
-      accumulatedSaving -= housePrice * 1_00_000;
     } else {
       salarySaved += Math.floor((salarySaved / 100) * salaryIncrease);
       accumulatedSaving += salarySaved;
     }
+
     currentAge++;
   }
   return output;

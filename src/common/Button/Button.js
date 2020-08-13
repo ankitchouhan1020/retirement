@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./button.css";
 import PropTypes from "prop-types";
+import "./button.css";
 
 const Button = ({ label, path, type }) => {
   const [hover, setHover] = useState(false);
@@ -13,8 +13,12 @@ const Button = ({ label, path, type }) => {
     success: { normal: "#0ead69", hover: "#057a48" },
   };
   const customStyle = {
-    normal: { backgroundColor: colorType[type].normal },
-    hover: { backgroundColor: colorType[type].hover },
+    normal: {
+      backgroundColor: colorType[type]?.normal || colorType.primary.normal,
+    },
+    hover: {
+      backgroundColor: colorType[type]?.hover || colorType.primary.hover,
+    },
   };
 
   return (
