@@ -1,7 +1,18 @@
 import React from "react";
+import "./notFound.css";
 
 const NotFound = () => {
-  return <h1>Not Found</h1>;
+  return (
+    <section>
+      <div className="nf404container">
+        <img
+          className="nf404image"
+          src={require("assets/undraw_page_not_found_su7k.svg")}
+          alt="resource not found"
+        />
+      </div>
+    </section>
+  );
 };
 
 export default NotFound;

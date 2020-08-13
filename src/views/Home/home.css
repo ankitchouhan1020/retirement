@@ -1,8 +1,11 @@
-.hm89container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.hm89image-container {
+  width: 40vw;
+  height: 60vh;
+}
+
+.hm89image-container img {
+  width: 100%;
+  height: 100%;
 }
 
 .hm90title-group {
@@ -12,11 +15,17 @@
 .hm90title {
   font-size: 4rem;
   font-family: Roboto, sans-serif;
-  color: rgb(66, 66, 66);
+  color: rgb(44, 44, 44);
   margin-bottom: 0;
 }
 
 .hm91subtitle {
   font-size: 2rem;
   color: rgba(66, 66, 66, 0.7);
+}
+
+@media screen and (max-width: 941px) {
+  .hm89image-container {
+    display: none;
+  }
 }

@@ -1,0 +1,41 @@
+#projects {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pjs89title {
+  font-size: 2rem;
+  color: rgb(66, 66, 66);
+}
+
+.pjs90container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pjs92img {
+  height: 300px;
+  width: 300px;
+}
+
+.pjs91image-container {
+  text-align: center;
+  margin: 20px 25px;
+  padding: 10px 20px;
+  border: 1px solid #1b9999;
+  border-radius: 8px;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 5px 20px 1px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 980px) {
+  #projects {
+    margin: 62px auto;
+  }
+  .pjs90container {
+    justify-content: space-around;
+  }
+}
