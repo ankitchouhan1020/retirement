@@ -1,14 +1,14 @@
-.form-group {
+.form545group {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
-ul {
+.form545group ~ ul {
   padding-left: 0;
 }
 
-li {
+.form545group li {
   list-style-type: none;
   margin: 15px auto;
   width: 350px;

@@ -1,4 +1,4 @@
-.btn90primary {
+.btn954primary {
   outline: none;
   border: none;
   cursor: pointer;
@@ -7,9 +7,34 @@
   padding: 10px 20px;
   border-radius: 5px;
   color: #f2f2f2;
+  background-color: #ff5c5c;
   transition: 0.2s ease-in-out;
 }
 
-.btn90primary:hover {
+.btn954primary:hover {
+  background-color: #eb4040;
   color: #fff;
+}
+
+.btn954danger {
+  background-color: #ff4444;
+}
+
+.btn954danger:hover {
+  background-color: #cc0000;
+}
+
+.btn954info {
+  background-color: #25ced1;
+}
+
+.btn954info:hover {
+  background-color: #278587;
+}
+.btn954success {
+  background-color: #0ead69;
+}
+
+.btn954success:hover {
+  background-color: #057a48;
 }

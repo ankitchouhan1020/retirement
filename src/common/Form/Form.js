@@ -5,7 +5,7 @@ import "./form.css";
 
 const Form = ({ input, onSlide }) => {
   return (
-    <ul className="form-group">
+    <ul className="form545group">
       {Object.keys(input).map((key) => (
         <li key={key}>
           <Slider

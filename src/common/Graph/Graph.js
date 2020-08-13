@@ -75,7 +75,7 @@ class Graph extends Component {
     };
 
     return (
-      <div className="graph92container">
+      <div className="graph921container">
         <HighchartsReact highcharts={Highcharts} options={options} />
       </div>
     );

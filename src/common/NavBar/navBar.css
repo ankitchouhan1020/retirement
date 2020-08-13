@@ -1,5 +1,5 @@
 /* Navigation */
-nav {
+.nav845container {
   z-index: 10;
   position: fixed;
   font-size: 24px;
@@ -9,7 +9,7 @@ nav {
   background: rgb(255 255 255 / 50%);
 }
 
-nav a {
+.nav845container a {
   margin-right: 25px;
   color: rgb(255, 92, 92);
   text-decoration: none;
@@ -17,8 +17,8 @@ nav a {
   font-family: "Oswald", sans-serif;
 }
 
-nav a:hover,
-nav a:focus {
+.nav845container a:hover,
+.nav845container a:focus {
   color: rgb(66, 66, 66);
   border-bottom: 3px solid;
 }

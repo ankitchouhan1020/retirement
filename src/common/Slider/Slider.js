@@ -22,7 +22,7 @@ const Slider = ({
   onSlide,
 }) => {
   return (
-    <div className="slideContainer">
+    <div className="slider965container">
       {renderLabel({ label, format, content, name, value })}
       <input
         id={name}
@@ -32,7 +32,7 @@ const Slider = ({
         value={value}
         step={step}
         onChange={(e) => onSlide(name, e.target.value)}
-        className="slider"
+        className="slider965input"
       />
     </div>
   );

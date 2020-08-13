@@ -118,7 +118,7 @@ class RetireCal extends Component {
   render() {
     const { input, output, additionalInput } = this.state;
     return (
-      <div className="rc90container">
+      <div className="rc901container">
         <Graph output={output} />
         <Form input={input} onSlide={this.handleChange} />
         <Model input={additionalInput} onSlide={this.handleAdditionalChange} />

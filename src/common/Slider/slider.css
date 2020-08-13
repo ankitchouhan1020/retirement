@@ -1,8 +1,8 @@
-.slideContainer {
+.slider965container {
   margin: 5px 0;
 }
 
-.slider {
+.slider965input {
   -webkit-appearance: none;
   width: 100%;
   height: 5px;
@@ -14,7 +14,7 @@
   transition: opacity 0.2s;
 }
 
-.slider::-webkit-slider-thumb {
+.slider965input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 15px;
@@ -24,7 +24,7 @@
   cursor: pointer;
 }
 
-.slider::-moz-range-thumb {
+.slider965input::-moz-range-thumb {
   width: 25px;
   height: 25px;
   border-radius: 50%;

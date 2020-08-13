@@ -6,13 +6,13 @@ const Model = (props) => {
   const { input, onSlide } = props;
   const { min, max, houseBuyingAge, housePrice } = input;
   return (
-    <div className="model88container">
+    <div className="model925container">
       <img
-        className="model88img"
+        className="model925img"
         src="https://image.flaticon.com/icons/svg/602/602175.svg"
         alt="house"
       />
-      <h1 className="model88title"> Buy a House </h1>
+      <h1 className="model925title"> Buy a House </h1>
       <Slider
         name="houseBuyingAge"
         min={min}
