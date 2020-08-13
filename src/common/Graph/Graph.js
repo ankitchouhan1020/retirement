@@ -6,11 +6,53 @@ import { default as formatValue } from "utils/currencyFormatter";
 import "./graph.css";
 
 class Graph extends Component {
+  defineGraphData = () => {
+    let { output, retirementAge, startingAge } = this.props;
+    retirementAge = +retirementAge;
+    startingAge = +startingAge;
+
+    const dataLabels = {
+      enabled: true,
+      useHTML: true,
+      allowOverlap: true,
+      formatter() {
+        return `<div style="
+                          -webkit-border-top-left-radius: 0;
+                          -webkit-border-top-right-radius: 35px;
+                          -webkit-border-bottom-right-radius: 35px;
+                          -webkit-border-bottom-left-radius: 35px;
+                          -webkit-transform:rotate(-135deg);
+                          box-shadow: 1px 1px 7px #1a1a1a;">
+                  <img style="height: 30px;
+                        width:30px;
+                        -webkit-transform:rotate(+135deg);"
+                  src="https://img.icons8.com/clouds/100/000000/user-location.png"/>
+                </div>`;
+      },
+    };
+
+    const data = output.map((item) => {
+      const newData = {};
+
+      if (item.age === retirementAge) newData.dataLabels = dataLabels;
+      else newData.dataLabels = { enabled: false };
+
+      newData.x = item.age - startingAge;
+      newData.y = item.saving;
+      return newData;
+    });
+
+    return data;
+  };
+
   render() {
-    const { output } = this.props;
-    const startingAge = output.length === 0 ? 0 : output[0].age;
-    const lifespanAge = output.length === 0 ? 0 : output[output.length - 1].age;
-    let options = {
+    let { startingAge, lifespanAge } = this.props;
+    startingAge = +startingAge;
+    lifespanAge = +lifespanAge;
+
+    const data = this.defineGraphData();
+
+    const options = {
       chart: {
         type: "area",
       },
@@ -25,10 +67,14 @@ class Graph extends Component {
         text: "Financial Calculator Made Simple",
       },
       xAxis: {
-        categories: output.map((item) => item.age),
         allowDecimals: false,
         title: {
           text: "Age",
+        },
+        labels: {
+          formatter: function () {
+            return this.value + startingAge;
+          },
         },
         accessibility: {
           rangeDescription: `Range: ${startingAge} to ${lifespanAge}`,
@@ -51,13 +97,12 @@ class Graph extends Component {
           Saving : <b>${formatValue.format(this.point.y)}</b>
           `;
         },
+        outside: true,
       },
       plotOptions: {
         area: {
           marker: {
             enabled: false,
-            symbol: "circle",
-            radius: 2,
             states: {
               hover: {
                 enabled: true,
@@ -69,7 +114,7 @@ class Graph extends Component {
       series: [
         {
           name: "Saving",
-          data: output.map((item) => item.saving),
+          data,
         },
       ],
     };

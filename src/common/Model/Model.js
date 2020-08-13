@@ -9,7 +9,7 @@ const Model = (props) => {
     <div className="model925container">
       <img
         className="model925img"
-        src="https://image.flaticon.com/icons/svg/602/602175.svg"
+        src={require("./images/house.svg")}
         alt="house"
       />
       <h1 className="model925title"> Buy a House </h1>

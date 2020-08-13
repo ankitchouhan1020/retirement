@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { cloneDeep } from "lodash";
 import Graph from "common/Graph";
 import Form from "common/Form";
-import Model from "common/Model";
+// import Model from "common/Model";
 import calculateOutput from "utils/retirementAlgo";
 import "./retireCal.css";
 
@@ -107,21 +107,26 @@ class RetireCal extends Component {
     this.updateOutput();
   };
 
-  handleAdditionalChange = (field, value) => {
-    const additionalInput = { ...this.state.additionalInput };
-    additionalInput[field] = value;
-    this.setState({ additionalInput });
+  // handleAdditionalChange = (field, value) => {
+  //   const additionalInput = { ...this.state.additionalInput };
+  //   additionalInput[field] = value;
+  //   this.setState({ additionalInput });
 
-    this.updateOutput();
-  };
+  //   this.updateOutput();
+  // };
 
   render() {
-    const { input, output, additionalInput } = this.state;
+    const { input, output } = this.state;
     return (
       <div className="rc901container">
-        <Graph output={output} />
+        <Graph
+          output={output}
+          retirementAge={input.retirementAge.value}
+          startingAge={input.startingAge.value}
+          lifespanAge={input.lifespanAge.value}
+        />
         <Form input={input} onSlide={this.handleChange} />
-        <Model input={additionalInput} onSlide={this.handleAdditionalChange} />
+        {/* <Model input={additionalInput} onSlide={this.handleAdditionalChange} /> */}
       </div>
     );
   }
