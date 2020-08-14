@@ -7,48 +7,71 @@ import "./graph.css";
 
 class Graph extends Component {
   defineGraphData = () => {
-    let { output, retirementAge, startingAge } = this.props;
-    retirementAge = +retirementAge;
-    startingAge = +startingAge;
+    let { output, retirementAge, startingAge, houseBuyingAge } = this.props;
 
     const dataLabels = {
-      enabled: true,
-      useHTML: true,
-      allowOverlap: true,
-      formatter() {
-        return `<div style="
-                          -webkit-border-top-left-radius: 0;
-                          -webkit-border-top-right-radius: 35px;
-                          -webkit-border-bottom-right-radius: 35px;
-                          -webkit-border-bottom-left-radius: 35px;
-                          -webkit-transform:rotate(-135deg);
-                          box-shadow: 1px 1px 7px #1a1a1a;">
-                  <img style="height: 30px;
-                        width:30px;
-                        -webkit-transform:rotate(+135deg);"
-                  src="https://img.icons8.com/clouds/100/000000/user-location.png"/>
-                </div>`;
+      retirement: {
+        enabled: true,
+        useHTML: true,
+        crop: false,
+        overflow: "allow",
+        formatter() {
+          return `<div style="
+                            -webkit-border-top-left-radius: 0;
+                            -webkit-border-top-right-radius: 35px;
+                            -webkit-border-bottom-right-radius: 35px;
+                            -webkit-border-bottom-left-radius: 35px;
+                            -webkit-transform:rotate(-135deg);
+                            box-shadow: 1px 1px 7px #1a1a1a;">
+                    <img style="height: 30px;
+                          width:30px;
+                          margin:4px;
+                          -webkit-transform:rotate(135deg);"
+                          src="https://img.icons8.com/office/50/000000/old-man-skin-type-6.png"/>
+                  </div>`;
+        },
+      },
+      home: {
+        enabled: true,
+        useHTML: true,
+        crop: false,
+        overflow: "allow",
+        formatter() {
+          return `<div style="
+                            -webkit-border-top-left-radius: 0;
+                            -webkit-border-top-right-radius: 35px;
+                            -webkit-border-bottom-right-radius: 35px;
+                            -webkit-border-bottom-left-radius: 35px;
+                            -webkit-transform:rotate(-135deg);
+                            box-shadow: 1px 1px 7px #1a1a1a;">
+                    <img style="height: 30px;
+                          width:30px;
+                          -webkit-transform:rotate(135deg);"
+                    src="https://img.icons8.com/bubbles/50/000000/home-page.png"/>
+                  </div>`;
+        },
       },
     };
 
-    const data = output.map((item) => {
+    let data = [];
+    data = output.map((item) => {
       const newData = {};
 
-      if (item.age === retirementAge) newData.dataLabels = dataLabels;
+      if (item.age === retirementAge)
+        newData.dataLabels = dataLabels.retirement;
+      else if (item.age === houseBuyingAge)
+        newData.dataLabels = dataLabels.home;
       else newData.dataLabels = { enabled: false };
 
       newData.x = item.age - startingAge;
       newData.y = item.saving;
       return newData;
     });
-
     return data;
   };
 
   render() {
     let { startingAge, lifespanAge } = this.props;
-    startingAge = +startingAge;
-    lifespanAge = +lifespanAge;
 
     const data = this.defineGraphData();
 

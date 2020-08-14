@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { cloneDeep } from "lodash";
 import Graph from "common/Graph";
 import Form from "common/Form";
-// import Model from "common/Model";
+import Model from "common/Model";
 import calculateOutput from "utils/retirementAlgo";
 import "./retireCal.css";
 
@@ -22,7 +22,7 @@ class RetireCal extends Component {
       },
       salary: {
         label: "Yearly Salary",
-        value: 15_00_000,
+        value: 9_20_000,
         min: 0,
         max: 1_00_00_000,
         step: 10_000,
@@ -30,7 +30,7 @@ class RetireCal extends Component {
       },
       savingRate: {
         label: "Percentage Salary Saved",
-        value: 12,
+        value: 15,
         min: 0,
         max: 100,
       },
@@ -42,7 +42,7 @@ class RetireCal extends Component {
       },
       investmentReturnRate: {
         label: "Investment Return",
-        value: 9,
+        value: 6,
         min: 0,
         max: 100,
       },
@@ -56,8 +56,8 @@ class RetireCal extends Component {
       },
     },
     additionalInput: {
-      houseBuyingAge: 0,
-      housePrice: 0,
+      houseBuyingAge: 44,
+      housePrice: 61,
       min: 0,
       max: 100,
     },
@@ -84,15 +84,15 @@ class RetireCal extends Component {
     const { houseBuyingAge, housePrice } = this.state.additionalInput;
 
     const output = calculateOutput({
-      startingAge: +startingAge.value,
-      salary: +salary.value,
-      savingRate: +savingRate.value,
-      salaryIncrease: +salaryIncrease.value,
-      retirementAge: +retirementAge.value,
-      retirementSpending: +retirementSpending.value,
-      lifespanAge: +lifespanAge.value,
-      initialSaving: +initialSaving.value,
-      investmentReturnRate: +investmentReturnRate.value,
+      startingAge: startingAge.value,
+      salary: salary.value,
+      savingRate: savingRate.value,
+      salaryIncrease: salaryIncrease.value,
+      retirementAge: retirementAge.value,
+      retirementSpending: retirementSpending.value,
+      lifespanAge: lifespanAge.value,
+      initialSaving: initialSaving.value,
+      investmentReturnRate: investmentReturnRate.value,
       houseBuyingAge,
       housePrice,
     });
@@ -102,21 +102,18 @@ class RetireCal extends Component {
 
   handleChange = (field, value) => {
     const data = cloneDeep(this.state.input);
-    data[field].value = value;
-    this.setState({ input: data });
-    this.updateOutput();
+    data[field].value = parseInt(value);
+    this.setState({ input: data }, this.updateOutput);
   };
 
-  // handleAdditionalChange = (field, value) => {
-  //   const additionalInput = { ...this.state.additionalInput };
-  //   additionalInput[field] = value;
-  //   this.setState({ additionalInput });
-
-  //   this.updateOutput();
-  // };
+  handleAdditionalChange = (field, value) => {
+    const additionalInput = { ...this.state.additionalInput };
+    additionalInput[field] = parseInt(value);
+    this.setState({ additionalInput }, this.updateOutput);
+  };
 
   render() {
-    const { input, output } = this.state;
+    const { input, output, additionalInput } = this.state;
     return (
       <div className="rc901container">
         <Graph
@@ -124,9 +121,10 @@ class RetireCal extends Component {
           retirementAge={input.retirementAge.value}
           startingAge={input.startingAge.value}
           lifespanAge={input.lifespanAge.value}
+          houseBuyingAge={additionalInput.houseBuyingAge}
         />
         <Form input={input} onSlide={this.handleChange} />
-        {/* <Model input={additionalInput} onSlide={this.handleAdditionalChange} /> */}
+        <Model input={additionalInput} onSlide={this.handleAdditionalChange} />
       </div>
     );
   }

@@ -2,8 +2,8 @@
   box-sizing: border-box;
   box-shadow: 0px 0px 6px 5px rgba(225, 225, 226, 0.45);
   position: relative;
-  width: 220px;
-  margin: 100px;
+  width: 260px;
+  margin-top: 20px;
   padding: 10px 10px 10px 20px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
