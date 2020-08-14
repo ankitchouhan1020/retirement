@@ -124,7 +124,12 @@ class RetireCal extends Component {
           houseBuyingAge={additionalInput.houseBuyingAge}
         />
         <Form input={input} onSlide={this.handleChange} />
-        <Model input={additionalInput} onSlide={this.handleAdditionalChange} />
+        <div className="rc901model">
+          <Model
+            input={additionalInput}
+            onSlide={this.handleAdditionalChange}
+          />
+        </div>
       </div>
     );
   }
