@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { cloneDeep } from "lodash";
+import { cloneDeep, debounce } from "lodash";
 import Graph from "common/Graph";
 import Form from "common/Form";
 import Model from "common/Model";
@@ -64,6 +64,11 @@ class RetireCal extends Component {
     output: [],
   };
 
+  constructor() {
+    super();
+    this.handleDebouncedOutput = debounce(this.updateOutput, 400);
+  }
+
   componentDidMount() {
     this.updateOutput();
   }
@@ -103,13 +108,13 @@ class RetireCal extends Component {
   handleChange = (field, value) => {
     const data = cloneDeep(this.state.input);
     data[field].value = parseInt(value);
-    this.setState({ input: data }, this.updateOutput);
+    this.setState({ input: data }, this.handleDebouncedOutput);
   };
 
   handleAdditionalChange = (field, value) => {
     const additionalInput = { ...this.state.additionalInput };
     additionalInput[field] = parseInt(value);
-    this.setState({ additionalInput }, this.updateOutput);
+    this.setState({ additionalInput }, this.handleDebouncedOutput);
   };
 
   render() {
