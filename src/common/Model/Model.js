@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Slider from "common/Slider";
 import "./model.css";
 
@@ -31,6 +32,11 @@ const Model = (props) => {
       />
     </div>
   );
+};
+
+Model.propTypes = {
+  input: PropTypes.object.isRequired,
+  onSlide: PropTypes.func.isRequired,
 };
 
 export default Model;

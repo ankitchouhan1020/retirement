@@ -18,7 +18,7 @@ Button.defaultProps = {
   type: "primary",
 };
 
-Button.prototype = {
+Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
