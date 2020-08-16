@@ -1,9 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import RetireCal from "views/RetireCal";
+import loadable from "@loadable/component";
 import Home from "views/Home";
 import NotFound from "views/NotFound";
 import Projects from "views/Projects";
+const RetireCal = loadable(() =>
+  import(/* webpackPrefetch: true */ "views/RetireCal")
+);
 
 const Router = () => {
   return (
