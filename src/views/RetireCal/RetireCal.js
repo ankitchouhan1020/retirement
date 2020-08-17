@@ -64,8 +64,7 @@ class RetireCal extends Component {
     output: [],
   };
 
-  constructor() {
-    super();
+  componentWillMount() {
     this.handleDebouncedOutput = debounce(this.updateOutput, 400);
   }
 
