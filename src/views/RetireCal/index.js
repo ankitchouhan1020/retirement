@@ -1,2 +1,1 @@
-import RetireCal from "./RetireCal";
-export default RetireCal;
+export { default } from "./RetireCal";

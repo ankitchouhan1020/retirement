@@ -106,13 +106,13 @@ class RetireCal extends Component {
 
   handleChange = (field, value) => {
     const data = cloneDeep(this.state.input);
-    data[field].value = parseInt(value);
+    data[ field ].value = parseInt(value);
     this.setState({ input: data }, this.handleDebouncedOutput);
   };
 
   handleAdditionalChange = (field, value) => {
     const additionalInput = { ...this.state.additionalInput };
-    additionalInput[field] = parseInt(value);
+    additionalInput[ field ] = parseInt(value);
     this.setState({ additionalInput }, this.handleDebouncedOutput);
   };
 
