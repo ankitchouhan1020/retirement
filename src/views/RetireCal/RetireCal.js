@@ -1,78 +1,20 @@
-import React, { Component } from "react";
-import { cloneDeep, debounce } from "lodash";
+import React, { useEffect } from "react";
+// import { debounce } from "lodash";
+import { useSelector, useDispatch } from 'react-redux'
+import { setInputField, setAdditionalInputField, setOutput } from './RetireSlice'
 import Graph from "common/Graph";
 import Form from "common/Form";
 import Model from "common/Model";
 import calculateOutput from "utils/retirementAlgo";
 import "./retireCal.css";
 
-class RetireCal extends Component {
-  state = {
-    input: {
-      startingAge: { label: "Starting Age", value: 26, min: 0, max: 100 },
-      retirementAge: { label: "Retirement Age", value: 65, min: 0, max: 100 },
-      lifespanAge: { label: "Lifespan Age", value: 80, min: 0, max: 100 },
-      initialSaving: {
-        label: "Initial Saving",
-        value: 0,
-        min: 0,
-        max: 10_00_000,
-        step: 10_000,
-        format: true,
-      },
-      salary: {
-        label: "Yearly Salary",
-        value: 9_20_000,
-        min: 0,
-        max: 1_00_00_000,
-        step: 10_000,
-        format: true,
-      },
-      savingRate: {
-        label: "Percentage Salary Saved",
-        value: 15,
-        min: 0,
-        max: 100,
-      },
-      salaryIncrease: {
-        label: "Salary Increment % Yearly",
-        value: 5,
-        min: 0,
-        max: 100,
-      },
-      investmentReturnRate: {
-        label: "Investment Return",
-        value: 6,
-        min: 0,
-        max: 100,
-      },
-      retirementSpending: {
-        label: "Yearly Spending After Retirement",
-        value: 12_00_000,
-        min: 0,
-        max: 1_00_00_000,
-        step: 10_000,
-        format: true,
-      },
-    },
-    additionalInput: {
-      houseBuyingAge: 44,
-      housePrice: 61,
-      min: 0,
-      max: 100,
-    },
-    output: [],
-  };
+function RetireCal() {
+  const input = useSelector(({ retire }) => retire.input)
+  const output = useSelector(({ retire }) => retire.output)
+  const additionalInput = useSelector(({ retire }) => retire.additionalInput);
+  const dispatch = useDispatch();
 
-  componentWillMount() {
-    this.handleDebouncedOutput = debounce(this.updateOutput, 400);
-  }
-
-  componentDidMount() {
-    this.updateOutput();
-  }
-
-  updateOutput = () => {
+  const updateOutput = () => {
     const {
       startingAge,
       salary,
@@ -83,9 +25,9 @@ class RetireCal extends Component {
       lifespanAge,
       initialSaving,
       investmentReturnRate,
-    } = this.state.input;
+    } = input;
 
-    const { houseBuyingAge, housePrice } = this.state.additionalInput;
+    const { houseBuyingAge, housePrice } = additionalInput;
 
     const output = calculateOutput({
       startingAge: startingAge.value,
@@ -101,42 +43,48 @@ class RetireCal extends Component {
       housePrice,
     });
 
-    this.setState({ output });
+    dispatch(setOutput(output))
   };
 
-  handleChange = (field, value) => {
-    const data = cloneDeep(this.state.input);
-    data[ field ].value = parseInt(value);
-    this.setState({ input: data }, this.handleDebouncedOutput);
+  const handleChange = (field, value) => {
+    dispatch(setInputField({
+      field, value: parseInt(value)
+    }))
+    // handleDebouncedOutput();
+    updateOutput();
   };
 
-  handleAdditionalChange = (field, value) => {
-    const additionalInput = { ...this.state.additionalInput };
-    additionalInput[ field ] = parseInt(value);
-    this.setState({ additionalInput }, this.handleDebouncedOutput);
+  const handleAdditionalChange = (field, value) => {
+    dispatch(setAdditionalInputField({
+      field, value: parseInt(value)
+    }))
+    // handleDebouncedOutput();
+    updateOutput();
   };
 
-  render() {
-    const { input, output, additionalInput } = this.state;
-    return (
-      <div className="rc901container">
-        <Graph
-          output={output}
-          retirementAge={input.retirementAge.value}
-          startingAge={input.startingAge.value}
-          lifespanAge={input.lifespanAge.value}
-          houseBuyingAge={additionalInput.houseBuyingAge}
+  // const handleDebouncedOutput = useCallback(debounce(updateOutput, 400), []);
+
+  useEffect(updateOutput, [])
+
+  return (
+    <div className="rc901container">
+      <Graph
+        output={output}
+        retirementAge={input.retirementAge.value}
+        startingAge={input.startingAge.value}
+        lifespanAge={input.lifespanAge.value}
+        houseBuyingAge={additionalInput.houseBuyingAge}
+      />
+      <Form input={input} onSlide={handleChange} />
+      <div className="rc901model">
+        <Model
+          input={additionalInput}
+          onSlide={handleAdditionalChange}
         />
-        <Form input={input} onSlide={this.handleChange} />
-        <div className="rc901model">
-          <Model
-            input={additionalInput}
-            onSlide={this.handleAdditionalChange}
-          />
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default RetireCal;
