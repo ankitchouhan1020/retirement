@@ -1,4 +1,7 @@
 .rc901container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: 62px;
   width: 80vw;
   margin: auto;
